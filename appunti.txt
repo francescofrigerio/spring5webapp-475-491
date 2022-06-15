@@ -1,3 +1,9 @@
+Accesso ad H2 console
+http://localhost:8080/h2-console
+Driver Class=org.h2.Driver
+JDBC URL=jdbc:h2:mem:testdb (verificare che non ci siano altri valori in cache
+User name=sa
+
 
 3) LEZIONE 478
 3.8) Creazione di due Pojo nel livello domain
@@ -114,6 +120,48 @@ costruita nella classe Book
     la logica secondo la quale due oggetti che hanno lo stesso
     valore del campo ID possono essere consdierati uguali
     mentre se hanno id diversi saranno considerati diversi.
+
+    5) LEZIONE 480 GITHUB APPUNTI
+
+    6) LEZIONE 481
+    Access git greencore mail pwd@365FF
+    Create Repo + Import oppure Fork
+    Create Branch
+    Attenzione al file pom e al nome del progetto artifactid
+    Conviene ricompilare con i valori del guru e poi
+    modificare
+    Fare il test quindi commit e push
+
+    7) LEZIONE 482
+    Livello e package repository
+    classi AuthorRepository BookRepository
+    che estendono l'interfaccia CrudRepositpry e lavorano
+    sulla relativa entita  Author e Book
+    Come tipo del campo Id usiamo Long ma si possono usare anche int o String
+    Se si da un occhiata all'interfaccia CrudRepositpry si vede
+    che è annotata come @NoRepositoryBean per cui innestata runtime nel contesto di Spring
+    e contiene la dichiarazione delle operazioni "crude" Delete Find Save
+    in diverse modalita ad esempio findById findAll ecc.
+
+    8) LEZIONE 483
+     Livello e package bootstrap
+     la classe DevBoostrap implementa l'interfaccia ApplicationListener<ContextRefreshedEvent>
+     in modo che deve solo implementare il metodo  onApplicationEvent
+     al cui interno eseguiamo il nostro codice di inizializzazione del DB
+
+    9) LEZIONE 484
+    Assignment - Publisher Entity
+    • Create a new entity ‘Publisher’, with name and address attributes.
+    • Remove publisher string from Book entity.
+    Add Publisher use a @OneToOne relationship
+    • Add Publisher repository.
+    • Modify DevBootstrap to populate publisher / book entity.
+    • Inspect DB in H2 Console
+
+       10) LEZIONE 485
+       Commit del progetto con le ultime modifiche fino alla 483
+       Creazione di un nuovo branch
+
 
 
 
