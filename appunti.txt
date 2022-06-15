@@ -1,0 +1,120 @@
+
+3) LEZIONE 478
+3.8) Creazione di due Pojo nel livello domain
+Author and Book con una relazione molti a molti
+perchè un Autore può avere più libru ma anche un libro
+può avere più autori.
+Questa è pura programmazione orientata agli oggetti.
+Queste due pojo sono correlati tra di loro
+perchè condividono un insieme cioè
+la classe Author ha un set di Books
+e la la classe Book ha un set di Authors
+
+Dobbiamo poi convertirlo in un entita JPA
+cosa che si fa tramite l'annotazione @Entity
+a livello della classe che richiede
+la lib javax.persistence la lib ufficiale
+per la persistenza degli oggetti in java
+e che non è specifica di Hibernate.
+
+Dobbiamo poi identificare le due entita JPA
+appenda definite in modo univoco
+cosa che possiamo fare annotando con @Id
+il campo long Id che funziona da campo chiave
+e identificatore univoco nell'insieme della classe
+degli oggetti persistiti.
+In questo modo possiamo avere in termini di
+persistenza piu autori
+con lo stesso nome e cognome
+Il campo ID rappresenta una rottura del paradigma
+ad oggetti ed una discontinuita' a favore
+del database relazionale che richiede la sua
+aggiunta.
+Il campo ID oltre ad essere annotato come univoco
+con @Id viene annotato con @GeneratedValue(strategy = GenerationType.AUTO)
+in modo che il suo valore sia generato in automatico
+Entrambe le annotazioni Id come GeneratedValue
+utilizzano le funzionalita standard fornite da
+javax.persistence. Sono entrambi supportati
+da H2,MySql mentre Oracle12 sembrano esserci
+dei problemi nel 2017 ma adesso dovrebbe
+essere stato sistemato.
+In assenza di lombok biosgna anche aggiungere a mano
+i metodi getter and setter del campo Id
+
+Infine l'ultima cosa da fare è aggiungere
+la relazione ManyToMany tra i due Oggetti Set
+in modo da dichiarare la relazione
+molti a molti tra le due classe ma anche tra
+le due tabelle del database.
+Con l'annotazione Entity dichiariamo
+l'esistenza delle tabelle Autori e Libri
+e con l'annotazione  ManyToMany + JoinTable
+dichariamo la join tra le due tabelle
+con la specifica delle due colonne da mettere in join
+Solo sulla classe Book mentre sulla classe
+Author dichiariamo solo la relazione
+con il riferimento del nome alla tabella join
+costruita nella classe Book
+
+    // CLasse Book
+    // Se dichiaro solo le due relazioni
+    // senza specificare altro cre inutilmente
+    // due tabelle di Join visto che non
+    // le abbiamo specificate H2 cerca di specificarle
+    // enbtrambe . Il nome delle colonne book_id
+    // e author_id sono i nomi della tabella comune
+    // di join che possono essere diverse dalle tabelle
+    // fisiche effettive. Questa è solo una join
+    @ManyToMany
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors = new HashSet<>();
+
+    // Classe Author
+    // Il mappedBy serve a non creare una seconda
+    // tabella di Join che sarebbe un inutule
+    // duplicato
+    //@ManyToMany
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books  = new HashSet<>();
+
+    Devo anche settare spring.h2.console.enabled=true
+    nel file di prop per poter accedere
+    alla console di H2 e vedere le tabelle
+    AUTHORS BOOKS AUTHORS_BOOKS
+    Accedo poi tramite
+    http://localhost:8080/h2-console
+    settare
+    Driver Class org.h2.Driver
+    JDBC URL jdbc:h2:mem:testdb (verificare che non ci
+    siano altri valori in cache
+    User name sa
+
+    Ho dovuto mettere in linea il file pom_guru.xml
+    dopodiche con un maven clean + install è andato a posto 
+    ma il problema dell'accesso a H2 dovrebbe 
+    essere stato risolto da invalidate cache
+
+    4) LEZIONE 479
+    Aggiunta dei metodi equals and toString
+    alle classi Author and Books
+    VErificare se si possono generare in auto
+    come nella versione enterprise
+    In questo modo possiamo avere un campo
+    chiave molto piu' affidabile del titolo
+    del libro oppure del nome e cognome dell'autore
+    In ogni caso si potranno sempre usare7
+    all'occorenza i campi titolo o nome come chiavi
+    Quello che bisogna ricordare è che stiamo
+    lavorando con gli insiemi e questi due metodi
+    hashcode e equals quando x sapere se un determinato
+    è già presente all'interno di un certo insieme di tipo Set
+    Di fatto il metodo equals permette di codificare
+    la logica secondo la quale due oggetti che hanno lo stesso
+    valore del campo ID possono essere consdierati uguali
+    mentre se hanno id diversi saranno considerati diversi.
+
+
+
+

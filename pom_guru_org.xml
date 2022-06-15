@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>guru.springframework</groupId>
-	<artifactId>spring5webapp-475-491</artifactId>
+	<artifactId>spring5webapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring5webapp-475-491</name>
+	<name>spring5webapp</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -101,10 +101,5 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<!-- Ho dovuto mettere in linea il file pom_guru.xml -->
-	<!-- dopodiche con un maven clean + install è andato a posto -->
-	<!-- ma il problema dell'accesso a H2 dovrebbe essere stato risolto da invalidate cache -->
-    <!-- Altri problemi causati dalla modifica al  nome del progetto rispetto a Thompson -->
-    <!-- Per sistemare ho dovuto rimettere in linea il pom di thompson ricompilare e poi modificare -->
-	<!-- Cancellare alla fine il modulo relatico al pom di thompson quindi spring5webapp -->
+
 </project>
